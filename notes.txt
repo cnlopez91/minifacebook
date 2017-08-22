@@ -1,0 +1,10 @@
+- Use devise to have a login system
+    * ability to log in w/password
+    * ability to log out
+    * ability to change password
+    * ability to recover password
+    * Devise
+- Show a list of all users in the system that 
+  you can add as friends
+- Have a wall for users to post statuses
+- Have ability for other users to comment on statuses

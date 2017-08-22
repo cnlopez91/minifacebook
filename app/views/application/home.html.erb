@@ -1,0 +1,6 @@
+<% if user_signed_in? %>
+    Welcome <%= current_user.email %>
+    <%= link_to('Log Out', 'users/sign_out', method: 'delete') %>
+<% else %>
+    <a href="/users/sign_in">Log In</a>
+<% end %>
