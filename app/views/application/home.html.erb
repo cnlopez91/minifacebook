@@ -1,6 +1,24 @@
 <% if user_signed_in? %>
-    Welcome <%= current_user.email %>
-    <%= link_to('Log Out', 'users/sign_out', method: 'delete') %>
+    <table>
+        <tr>
+            <th>Welcome to MiniFaceBook, <%= current_user.name %> <%= current_user.lastname%></th>
+        </tr>
+        <tr>
+            <td><%= link_to 'Log Out', 'users/sign_out', method: 'delete' %></td>
+        </tr>
+        <tr>
+            <td><%= link_to 'Change Password', '/users/edit', method: 'get' %></td>
+        </tr>
+        <tr>
+            <td><%= link_to 'Show Users', '/users', method: 'get' %></td>
+        </tr>
+        <tr>
+            <th>Profile</th>
+        </tr>
+        <tr>
+            <td><%=link_to current_user.email, "/userwall?id=#{current_user.id}"%></td>
+        </tr>
+    </table>
 <% else %>
     <a href="/users/sign_in">Log In</a>
 <% end %>

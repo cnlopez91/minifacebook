@@ -1,10 +1,33 @@
 - Use devise to have a login system
-    * ability to log in w/password
-    * ability to log out
-    * ability to change password
+    * ability to log in w/password DONE
+    * ability to log out DINE
+    * ability to change password DONE
     * ability to recover password
     * Devise
 - Show a list of all users in the system that 
   you can add as friends
+    * Create a model called friendship and a table called friendships (user-id, friend-id(2nd user-id))
+    Users
+    1, Cristian
+    2, Ramiro
+    
+    Controller
+    def add_friend
+        friend_id = param[:user_id]
+        user_id = current_user.id
+    end
+    
+    * Work on users controller
+      -index of all users
+      -show
+        +add friend
+        
+    each USER on the index.html.erb file will call the SHOW action in the controller
+    
+    have a search for all the users and incorporate ability to add any user
+        <a href="/add?user_id=<%= user.id %>">Add Friend</a>
+        
 - Have a wall for users to post statuses
+- post-database -> who posted it/timestamp/content
 - Have ability for other users to comment on statuses
+

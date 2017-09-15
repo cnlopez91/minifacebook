@@ -1,0 +1,22 @@
+<div>
+    <%= link_to 'Home', '/', method: 'get' %>
+</div>
+<table>
+    <tr>
+        <th>Email</th>
+    </tr>
+    <% @all_users.each do |user| %>
+        <tr>
+            <% if (user.email == current_user.email) then %>
+                <td><%= link_to user.email, "/userwall?id=#{user.id}" %></td>
+            <% else %>
+                <td><%=link_to user.email, "/userwall?id=#{user.id}" %></td>
+                <td>
+                    <% if (Friendship.find_by(user_id: current_user.id, friend_id: user.id).nil?) %>
+                        <%=link_to 'Add Friend', "/addfriend?friend_id=#{user.id}" %>
+                    <% end %>
+                </td>
+            <% end %>
+        </tr>
+    <% end %>
+</table>
