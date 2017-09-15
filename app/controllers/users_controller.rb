@@ -46,7 +46,20 @@ class UsersController < ApplicationController
         redirect_to "/userwall?id=#{user_post.id}"
     end
     
-    def destroy
+    def post_destroy
+        Post.find(params[:id]).destroy
+        
+        user_post = User.find((Post.find(params[:post_id])).user_id)
+        
+        redirect_to "/userwall?id=#{user_post}"
+    end
     
+    def comment_destroy
+    end
+    
+    def delete
+        Book.find(params[:id]).destroy
+        redirect_to :action => 'list'
+    end
     
 end
