@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   get '/addfriend' => 'users#addfriend'
   post '/post' => 'users#post'
   post '/comment' => 'users#comment'
-  delete '/posts/:id' => 'posts#destroy'
-  delete '/comments/:id' => 'comments#destroy'
+  delete '/posts/:id' => 'users#post_destroy'
+  delete '/comments/:id' => 'users#comment_destroy'
 end

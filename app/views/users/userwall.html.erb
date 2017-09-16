@@ -1,41 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">MiniFaceBook</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><%=link_to 'Profile', "/userwall?id=#{current_user.id}"%></li>
+                    <li><%= link_to 'Show Users', '/users', method: 'get' %></li>
+                    <li><%= link_to 'Edit Account', '/users/edit', method: 'get' %></li>
+                    <li><%= link_to 'Log Out', 'users/sign_out', method: 'delete' %></li>
+                </ul>
+            </div>
+        </nav>
+    </body>
+        
 <h1><%= @user.name%> <%= @user.lastname%></h1>
-<div>
-    <%= link_to 'Home', '/', method: 'get' %>
-</div>
-<div>
-    <%= link_to 'Users', '/users', method: 'get' %>
-</div>
-<% if (current_user.email == @user.email) then %>
-<div>
-    <%= form_tag("/post", method: "post") do %>
-    <%= label_tag(:post, "Write a post...") %>
-    <%= text_field_tag(:post) %>
-    <%= submit_tag("Post") %>
-    <% end %>
-</div>
-<% end %>
 
 
-<ul style="list-style-type:none">
-<% @posts.each do |post| %>
-    <li>
-        <%= post.content %>
-        <%= link_to 'Delete Post', "/posts/#{post.id}", method: 'delete' %>
-        <div>
-            <%= form_tag("/comment", method: "post") do %>
-            <%= label_tag(:comment, "Write a comment...") %>
-            <%= text_field_tag(:comment) %>
-             <%= hidden_field_tag(:post_id, post.id) %>
-            <%= submit_tag("Comment") %>
+    <div class="form-group">
+        <% if (current_user.email == @user.email) then %>
+            <%= form_tag("/post", method: "post") do %>
+            <%= label_tag(:post, "Write a post...") %>
+            <%= text_field_tag(:post) %>
+            <%= submit_tag("Post") %>
             <% end %>
-
-            <% post.comments.each do |comment| %>
-            <li>
-                <%= comment.content %>
-                <%= link_to 'Delete Comment', "/comments/#{comment.id}", method: 'delete' %>
-            </li>
+        <% end %>
+    </div>
+    
+    <div class="form-group">
+        <ul style="list-style-type:none">
+            <% @posts.each do |post| %>
+                <li>
+                    <%= post.content %>
+                    <%= link_to 'Delete Post', "/posts/#{post.id}", method: 'delete' %>
+                    <div>
+                        <%= form_tag("/comment", method: "post") do %>
+                        <%= label_tag(:comment, "Write a comment...") %>
+                        <%= text_field_tag(:comment) %>
+                        <%= hidden_field_tag(:post_id, post.id) %>
+                        <%= submit_tag("Comment") %>
+                        <% end %>
+            
+                        <% post.comments.each do |comment| %>
+                        <li>
+                            <%= comment.content %>
+                        </li>
+                        <% end %>
+                    </div>
+                </li>
             <% end %>
-        </div>
-    </li>
-<% end %>
-</ul>
+        </ul>
+    </div>
+</html>

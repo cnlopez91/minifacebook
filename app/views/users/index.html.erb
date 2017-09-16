@@ -1,22 +1,50 @@
-<div>
-    <%= link_to 'Home', '/', method: 'get' %>
-</div>
-<table>
-    <tr>
-        <th>Email</th>
-    </tr>
-    <% @all_users.each do |user| %>
-        <tr>
-            <% if (user.email == current_user.email) then %>
-                <td><%= link_to user.email, "/userwall?id=#{user.id}" %></td>
-            <% else %>
-                <td><%=link_to user.email, "/userwall?id=#{user.id}" %></td>
-                <td>
-                    <% if (Friendship.find_by(user_id: current_user.id, friend_id: user.id).nil?) %>
-                        <%=link_to 'Add Friend', "/addfriend?friend_id=#{user.id}" %>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand">MiniFaceBook</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><%=link_to 'Profile', "/userwall?id=#{current_user.id}"%></li>
+                    <li><%= link_to 'Edit Account', '/users/edit', method: 'get' %></li>
+                    <li><%= link_to 'Log Out', 'users/sign_out', method: 'delete' %></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Users</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @all_users.each do |user| %>
+                        <tr>
+                            <% if (user.email == current_user.email) then %>
+                                <td><%= link_to "#{user.name} #{user.lastname}", "/userwall?id=#{user.id}" %></td>
+                            <% else %>
+                                <td><%=link_to "#{user.name} #{user.lastname}", "/userwall?id=#{user.id}" %></td>
+                                <td>
+                                    <% if (Friendship.find_by(user_id: current_user.id, friend_id: user.id).nil?) %>
+                                        <%=link_to 'Add Friend', "/addfriend?friend_id=#{user.id}" %>
+                                    <% else %>
+                                        <%= 'You are friends!' %>
+                                    <% end %>
+                                </td>
+                            <% end %>
+                        </tr>
                     <% end %>
-                </td>
-            <% end %>
-        </tr>
-    <% end %>
-</table>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

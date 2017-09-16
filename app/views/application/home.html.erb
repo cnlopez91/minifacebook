@@ -1,24 +1,34 @@
-<% if user_signed_in? %>
-    <table>
-        <tr>
-            <th>Welcome to MiniFaceBook, <%= current_user.name %> <%= current_user.lastname%></th>
-        </tr>
-        <tr>
-            <td><%= link_to 'Log Out', 'users/sign_out', method: 'delete' %></td>
-        </tr>
-        <tr>
-            <td><%= link_to 'Change Password', '/users/edit', method: 'get' %></td>
-        </tr>
-        <tr>
-            <td><%= link_to 'Show Users', '/users', method: 'get' %></td>
-        </tr>
-        <tr>
-            <th>Profile</th>
-        </tr>
-        <tr>
-            <td><%=link_to current_user.email, "/userwall?id=#{current_user.id}"%></td>
-        </tr>
-    </table>
-<% else %>
-    <a href="/users/sign_in">Log In</a>
-<% end %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+  </head>
+  <body>
+    <% if user_signed_in? %>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand">MiniFaceBook</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><%=link_to 'Profile', "/userwall?id=#{current_user.id}"%></li>
+                <li><%= link_to 'Show Users', '/users', method: 'get' %></li>
+                <li><%= link_to 'Edit Account', '/users/edit', method: 'get' %></li>
+                <li><%= link_to 'Log Out', 'users/sign_out', method: 'delete' %></li>
+            </ul>
+            <p class="navbar-text">Welcome, <%= current_user.name %> <%= current_user.lastname%>!</p>
+        </div>
+    </nav>
+    
+    <% else %>
+    
+        <a href="/users/sign_in">Log In</a>
+        
+    <% end %>
+    
+  </body>
+  
+</html>

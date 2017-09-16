@@ -47,14 +47,11 @@ class UsersController < ApplicationController
     end
     
     def post_destroy
+        user_post = User.find((Post.find(params[:id])).user_id)
+        
         Post.find(params[:id]).destroy
         
-        user_post = User.find((Post.find(params[:post_id])).user_id)
-        
-        redirect_to "/userwall?id=#{user_post}"
-    end
-    
-    def comment_destroy
+        redirect_to "/userwall?id=#{user_post.id}"
     end
     
     def delete
